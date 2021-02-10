@@ -50,36 +50,48 @@ class APIController extends ResourceController
 
         
     }
-    public function editarAnimal($id){
-
+    
+    public function editarAnimal($id)
+    {
         //1.recibir los datos que llegan de la petición
         $datosPeticion=$this->request->getRawInput();
-        return $this->respond($datosPeticion);
-
+        
         //2.Obtener solo los datos que deseo editar
-        $nombre=$datosPeticion['nombre'];
-        $edad=$datosPeticion['edad'];
+        
+        $nombre = $datosPeticion["nombre"];
+        $edad = $datosPeticion["edad"];
+        $tipo = $datosPeticion["tipo"];
+        $descripcion = $datosPeticion["descripcion"];
+        $comida = $datosPeticion["comida"];
 
         //3.creamos un arreglo asociativo con los datos para enviar al modelo
-        $datosEnvio=array(
-            "nombre"=>$nombre,
-            "telefono"=>$telefono
+      
+        $datosEnvio = array(
+
+            "nombre" => $nombre,
+            "edad" => $edad,
+            "tipo" => $tipo,
+            "descripcion" => $descripcion,
+            "comida" => $comida
         );
         
         //4. validamos y ejecutamos la operción en BD
-        if($this->validate('animalesPUT')){
-           
-            $this->model->update($id,$datosEnvio);
+        
+        if($this->validate('animalesPUT'))
+        {
+
+            $this->model->update($id, $datosEnvio);
             $mensaje=array('estado'=>true,'mensaje'=>"editado con exito");
             return $this->respond($mensaje);
-
         }
-        else{
+        else
+        {
             $validation =  \Config\Services::validation();
             return $this->respond($validation->getErrors(),400);
-
         }
     }
+
+    
     public function eliminarAnimal($id){
 
         //1.ejecutar la operación de delete

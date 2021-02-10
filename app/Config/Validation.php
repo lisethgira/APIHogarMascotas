@@ -51,7 +51,6 @@ class Validation
 
 		'nombre'=>'required',
 		'edad'=>'required',
-		'tipo'=>'required',
 		'descripcion'=>'required',
 		'comida'=>'required'
 	];
